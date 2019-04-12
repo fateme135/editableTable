@@ -1,0 +1,23 @@
+.title{
+     color: brown;
+ }
+ body,html
+ {
+     height:100%;
+     width: 100%;
+     max-width: 1200px;
+     margin:auto;
+     text-align: center;
+     align-content: center;
+ }
+ h1
+ {
+     text-align: center;
+     align-content: center;
+ }
+ .table
+ {
+     text-align: center;
+     align-content: center;
+     margin: 100px;
+ }
