@@ -48,16 +48,16 @@ var App = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
         _this.state = {
-            rows: [],
-            firstName: '',
+            rows: [], //step1
+            firstName: '', //step2
             lastName: '',
             age: 0,
             sex: false
-            // this.submit = this.submit.bind(this);//chon az arrow fun estefade nakardim felan bind mikonim
-        };_this.onChange = _this.onChange.bind(_this); //bind ro ham mishe in ja kard ham to on jayi ke farakhani mikonim
+            // this.submit = this.submit.bind(this);//chon az arrow fun estefade nakardim felan bind mikonim //step1
+        };_this.onChange = _this.onChange.bind(_this); //bind ro ham mishe in ja kard ham to on jayi ke farakhani mikonim//step2
         return _this;
     }
-    ///////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////step1////////////////////////////////////////////////////////
     // submit(e) {
     //     e.preventDefault();
     //     const { rows } = this.state;// === ba this.state.rows
@@ -68,7 +68,7 @@ var App = function (_React$Component) {
     //     rows.push({ firstName, lastName, age })
     //     this.setState({ rows })//ta zamani ke in ro nanevisim render nemikonad chon ta state taqir nakonad render farakhani nemishavad
     // }
-    ////////////////////////===onsubmit/////////////////////////////////////////////////
+    ////////////////////////===onsubmit////step2///////////////////////////////////////////////
 
 
     _createClass(App, [{
@@ -84,7 +84,7 @@ var App = function (_React$Component) {
             rows.push({ firstName: firstName, lastName: lastName, age: age, sex: sex, id: uuidv4() });
             this.setState({ rows: rows });
         }
-        ////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////step2////////////////////////////////////////////
 
     }, {
         key: 'onChange',
@@ -101,24 +101,36 @@ var App = function (_React$Component) {
                 this.setState(_defineProperty({}, name, value));
             }
         }
-        ////////////////////////////////First Solution with index for delete it is no nice////////////////////////////////////////////
+        ////////////////////////////////First Solution with index for delete it is no nice////step2//////////////////////////////////////////
+        // onDelete(index) {
+        //     const { rows } = this.state;
+        //     rows.splice(index, 1);
+        //     this.setState({ rows });
+        // }
+        ///////////////////////////////////second solution/////////////////////////////////////////
 
     }, {
         key: 'onDelete',
-        value: function onDelete(index) {
+        value: function onDelete(id) {
+            console.log('id is' + id);
             var rows = this.state.rows;
 
-            rows.splice(index, 1);
+            rows = rows.filter(function (value) {
+                return value.id !== id;
+            });
+            console.log(rows);
             this.setState({ rows: rows });
         }
-        ///////////////////////////////////second solution/////////////////////////////////////////
-        // onDelete(id) {
-        //     let { rows } = this.state;
-        //     rows = rows.filter(value => value.id !== id);
-        //     this.setState({ rows });
-        // }
-        ////////////////////////////////////////////////////////////////////////////
-
+        /////////////////////////////////////////tirth solution///////////////////////////////////////////////
+        // onDelete(id){
+        //     let {rows} = this.state;
+        //     rows===rows.map( value =>{
+        //             if(value.id===id)
+        //             {return row; }
+        //             return value;
+        //                  })     
+        //      this.setState({rows});
+        //  }
         ////////////////////////////////////////////////////////////////////////////
 
     }, {
@@ -126,13 +138,13 @@ var App = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            // const { rows } = this.state;// === ba this.state.rows
+            // const { rows } = this.state;// === ba this.state.rows//step1
             var _state2 = this.state,
                 rows = _state2.rows,
                 firstName = _state2.firstName,
                 lastName = _state2.lastName,
                 age = _state2.age,
-                sex = _state2.sex;
+                sex = _state2.sex; //step2
 
             return React.createElement(
                 'div',
@@ -218,9 +230,10 @@ var App = function (_React$Component) {
                             //alan ma map zadim ke yeseri row ro map konim be tr
                             return (
                                 //agar key ro nazanim moshkeli pish nemiomad faqad ye warning midad va in ba khater in ke react 
+                                // <tr key={index}>
                                 React.createElement(
                                     'tr',
-                                    { key: index },
+                                    { key: row.id, index: index },
                                     React.createElement(
                                         'td',
                                         null,
@@ -247,7 +260,7 @@ var App = function (_React$Component) {
                                         ' ',
                                         React.createElement(
                                             'button',
-                                            { onClick: _this2.onDelete.bind(_this2) },
+                                            { onClick: _this2.onDelete.bind(_this2), id: row.id },
                                             'Delete'
                                         )
                                     )
@@ -263,14 +276,15 @@ var App = function (_React$Component) {
     return App;
 }(React.Component);
 ///////////////////////////////////////////////////////
-// function uuidv4() {
-//     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-//         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-//         return v.toString(16);
-//     });
-// }
+
+
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0,
+            v = c == 'x' ? r : r & 0x3 | 0x8;
+        return v.toString(16);
+    });
+}
 /////////////////////////////////////////////////////////////
-
-
 var root = document.getElementById('root');
 ReactDOM.render(React.createElement(App, null), root);

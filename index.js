@@ -32,16 +32,17 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            rows: [],
-            firstName: '',
+            rows: [],//step1
+            firstName: '',//step2
             lastName: '',
             age: 0,
-            sex: false
+            sex: false,
+
         }
-        // this.submit = this.submit.bind(this);//chon az arrow fun estefade nakardim felan bind mikonim
-        this.onChange = this.onChange.bind(this);//bind ro ham mishe in ja kard ham to on jayi ke farakhani mikonim
+        // this.submit = this.submit.bind(this);//chon az arrow fun estefade nakardim felan bind mikonim //step1
+        this.onChange = this.onChange.bind(this);//bind ro ham mishe in ja kard ham to on jayi ke farakhani mikonim//step2
     }
-    ///////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////step1////////////////////////////////////////////////////////
     // submit(e) {
     //     e.preventDefault();
     //     const { rows } = this.state;// === ba this.state.rows
@@ -52,13 +53,13 @@ class App extends React.Component {
     //     rows.push({ firstName, lastName, age })
     //     this.setState({ rows })//ta zamani ke in ro nanevisim render nemikonad chon ta state taqir nakonad render farakhani nemishavad
     // }
-    ////////////////////////===onsubmit/////////////////////////////////////////////////
+    ////////////////////////===onsubmit////step2///////////////////////////////////////////////
     addNew() {
         let { rows, firstName, lastName, age, sex } = this.state;
-        rows.push({ firstName, lastName, age, sex, id:uuidv4() });
+        rows.push({ firstName, lastName, age, sex, id: uuidv4() });
         this.setState({ rows });
     }
-    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////step2////////////////////////////////////////////
     onChange(event) {
         let { name, value, type, checked } = event.target;
         if (type === "checkbox") {
@@ -68,28 +69,38 @@ class App extends React.Component {
             this.setState({ [name]: value })
         }
     }
-    ////////////////////////////////First Solution with index for delete it is no nice////////////////////////////////////////////
-    onDelete(index) {
-        const { rows } = this.state;
-        rows.splice(index, 1);
-        this.setState({ rows });
-    }
-    ///////////////////////////////////second solution/////////////////////////////////////////
-    // onDelete(id) {
-    //     let { rows } = this.state;
-    //     rows = rows.filter(value => value.id !== id);
+    ////////////////////////////////First Solution with index for delete it is no nice////step2//////////////////////////////////////////
+    // onDelete(index) {
+    //     const { rows } = this.state;
+    //     rows.splice(index, 1);
     //     this.setState({ rows });
     // }
-    ////////////////////////////////////////////////////////////////////////////
-
+    ///////////////////////////////////second solution/////////////////////////////////////////
+    onDelete(id) {
+        console.log('id is' + id);
+        let { rows } = this.state;
+        rows = rows.filter(value => value.id !== id);
+        console.log(rows);
+        this.setState({ rows });
+    }
+    /////////////////////////////////////////tirth solution///////////////////////////////////////////////
+    // onDelete(id){
+    //     let {rows} = this.state;
+    //     rows===rows.map( value =>{
+    //             if(value.id===id)
+    //             {return row; }
+    //             return value;
+    //                  })     
+    //      this.setState({rows});
+    //  }
     ////////////////////////////////////////////////////////////////////////////
     render() {
-        // const { rows } = this.state;// === ba this.state.rows
-        let { rows, firstName, lastName, age, sex } = this.state;
+        // const { rows } = this.state;// === ba this.state.rows//step1
+        let { rows, firstName, lastName, age, sex } = this.state;//step2
         return (
             <div>
                 <h1 className="title"> table</h1>
-                {/* <form onSubmit={this.submit}>
+                {/* <form onSubmit={this.submit}> //step1
                     <input type="text" id='firstName' />
                     <input type="text" id='lastName' />
                     <input type="number" id='age' />
@@ -117,13 +128,13 @@ class App extends React.Component {
                             rows.map((row, index) => {//alan ma map zadim ke yeseri row ro map konim be tr
                                 return (
                                     //agar key ro nazanim moshkeli pish nemiomad faqad ye warning midad va in ba khater in ke react 
-                                    <tr key={index}>
-                                     {/* <tr key={row.id} index={index}> */}
+                                    // <tr key={index}>
+                                    <tr key={row.id} index={index} >
                                         <td>{row.firstName}</td>
                                         <td>{row.lastName}</td>
                                         <td>{row.age}</td>
                                         <td>{row.sex}</td>
-                                        <td> <button onClick={this.onDelete.bind(this)}>Delete</button></td>
+                                        <td> <button onClick={this.onDelete.bind(this)} id={row.id}>Delete</button></td>
                                     </tr>
                                 )
                             })
@@ -134,12 +145,12 @@ class App extends React.Component {
     }
 }
 ///////////////////////////////////////////////////////
-// function uuidv4() {
-//     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-//         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-//         return v.toString(16);
-//     });
-// }
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
 /////////////////////////////////////////////////////////////
 const root = document.getElementById('root')
 ReactDOM.render(<App />, root) 
