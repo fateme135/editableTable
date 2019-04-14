@@ -69,19 +69,19 @@ class App extends React.Component {
         }
     }
     ////////////////////////////////First Solution with index for delete it is no nice////////////////////////////////////////////
-    ondelete(index) {
+    onDelete(index) {
         const { rows } = this.state;
         rows.splice(index, 1);
         this.setState({ rows });
     }
     ///////////////////////////////////second solution/////////////////////////////////////////
-    // ondelete(id) {
-        
+    // onDelete(id) {
     //     let { rows } = this.state;
     //     rows = rows.filter(value => value.id !== id);
     //     this.setState({ rows });
-    //     debugger;
     // }
+    ////////////////////////////////////////////////////////////////////////////
+
     ////////////////////////////////////////////////////////////////////////////
     render() {
         // const { rows } = this.state;// === ba this.state.rows
@@ -105,26 +105,25 @@ class App extends React.Component {
                             <th> action </th>
                         </tr>
                         <tr>
-                        <td><input defaultValue={firstName} name="firstName" style={styles.input} type="text" onChange={this.onChange} /></td>
+                            <td><input defaultValue={firstName} name="firstName" style={styles.input} type="text" onChange={this.onChange} /></td>
                             <td><input defaultValue={lastName} name="lastName" style={styles.input} type="text" onChange={this.onChange} /></td>
                             <td><input defaultValue={age} name="age" style={styles.input} type="number" onChange={this.onChange} /></td>
                             <td><input checked={sex} name="sex" style={styles.input} type="checkbox" onChange={this.onChange} /></td>
                             <td><button onClick={this.addNew.bind(this)}>Add</button></td>
-
                         </tr>
                     </thead>
                     <tbody className="container">
                         {
                             rows.map((row, index) => {//alan ma map zadim ke yeseri row ro map konim be tr
                                 return (
-                                    //agar in ro nazanim moshkeli pish nemiomad faqad ye warning midad va in ba khater in ke react 
-                                    <tr key={row.id}>
-
+                                    //agar key ro nazanim moshkeli pish nemiomad faqad ye warning midad va in ba khater in ke react 
+                                    <tr key={index}>
+                                     {/* <tr key={row.id} index={index}> */}
                                         <td>{row.firstName}</td>
                                         <td>{row.lastName}</td>
                                         <td>{row.age}</td>
                                         <td>{row.sex}</td>
-                                        <td> <button onClick={this.ondelete.bind(this)}>Delete</button></td>
+                                        <td> <button onClick={this.onDelete.bind(this)}>Delete</button></td>
                                     </tr>
                                 )
                             })
@@ -135,12 +134,12 @@ class App extends React.Component {
     }
 }
 ///////////////////////////////////////////////////////
-function uuidv4() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
-}
+// function uuidv4() {
+//     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+//         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+//         return v.toString(16);
+//     });
+// }
 /////////////////////////////////////////////////////////////
 const root = document.getElementById('root')
 ReactDOM.render(<App />, root) 

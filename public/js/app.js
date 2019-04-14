@@ -104,21 +104,21 @@ var App = function (_React$Component) {
         ////////////////////////////////First Solution with index for delete it is no nice////////////////////////////////////////////
 
     }, {
-        key: 'ondelete',
-        value: function ondelete(index) {
+        key: 'onDelete',
+        value: function onDelete(index) {
             var rows = this.state.rows;
 
             rows.splice(index, 1);
             this.setState({ rows: rows });
         }
         ///////////////////////////////////second solution/////////////////////////////////////////
-        // ondelete(id) {
-
+        // onDelete(id) {
         //     let { rows } = this.state;
         //     rows = rows.filter(value => value.id !== id);
         //     this.setState({ rows });
-        //     debugger;
         // }
+        ////////////////////////////////////////////////////////////////////////////
+
         ////////////////////////////////////////////////////////////////////////////
 
     }, {
@@ -217,10 +217,10 @@ var App = function (_React$Component) {
                         rows.map(function (row, index) {
                             //alan ma map zadim ke yeseri row ro map konim be tr
                             return (
-                                //agar in ro nazanim moshkeli pish nemiomad faqad ye warning midad va in ba khater in ke react 
+                                //agar key ro nazanim moshkeli pish nemiomad faqad ye warning midad va in ba khater in ke react 
                                 React.createElement(
                                     'tr',
-                                    { key: row.id },
+                                    { key: index },
                                     React.createElement(
                                         'td',
                                         null,
@@ -247,7 +247,7 @@ var App = function (_React$Component) {
                                         ' ',
                                         React.createElement(
                                             'button',
-                                            { onClick: _this2.ondelete.bind(_this2) },
+                                            { onClick: _this2.onDelete.bind(_this2) },
                                             'Delete'
                                         )
                                     )
@@ -263,15 +263,14 @@ var App = function (_React$Component) {
     return App;
 }(React.Component);
 ///////////////////////////////////////////////////////
-
-
-function uuidv4() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0,
-            v = c == 'x' ? r : r & 0x3 | 0x8;
-        return v.toString(16);
-    });
-}
+// function uuidv4() {
+//     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+//         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+//         return v.toString(16);
+//     });
+// }
 /////////////////////////////////////////////////////////////
+
+
 var root = document.getElementById('root');
 ReactDOM.render(React.createElement(App, null), root);
